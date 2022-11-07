@@ -1,0 +1,76 @@
+Design System é uma documentação usado por empresas grandes que desenvolvem várias aplicações frontend simultaneamente e  desejam deixá-las todas com um design padrão para componentes (e também coisas básicas como cores, fontes, espaçamentos, posicionamentos, formas, animações) compartilháveis entre todas e quaisquer aplicações.
+
+Componentes um pouco mais complexos, compartilháveis só em algumas aplicações, usam de uma documentação chamada UI Kit.
+
+Design systems de algumas empresas:
+    - Microsoft Fluent
+    - Uber Base Web
+    - Apple
+    - Rocketseat Andromeda
+
+a - Criada pasta 'packages' e 'tokens' com os arquivos com os padrões de fontes, cores etc para a aplicação.
+b - Rodado 'npm init -y' dentro de '/packages/tokens'
+c - Rodado 'npm i -D typescript' e 'npx tsc --init'
+
+d - Instalada a biblioteca TSUP ('npm i -D tsup'), ferramenta para fazer o processo de conversão do código para um pacote Javacript que poderá ser carregado por outras aplicações. É melhor do que usar o 'npm tsc', próprio do Typescript, pois com o TSUP pode-se gerar arquivos unificados tanto de Javascript comum (com imports usando 'require') quanto do novo, usando EcmaScript modules (com imports usanto 'import from'), além também de gerar arquivo com as definições de tipagem.
+e - Assim, foi acrescentado no package.json:
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch"
+  },
+
+
+Monorepo: conceito utilizado para trabalhar com vários pacotes com interdependências entre si tendo-os em uma mesma raiz.
+
+Criada pasta 'react' dentro de packages e feito os passos de 'a' a 'e' acima.
+
+Rodado 'npm init -y' na pasta raiz e adicionado '"private":true' no seu package.json. Isso diz que o pacote não será publicado no npm. E também: '"workspaces": ["packages/*"]', indicando a pasta onde estarão os pacotes do Monorepo.
+
+Deletadas as pastas 'node_module' e os 'package-lock.json' de 'react' e 'token'.
+Adicionado "@saintmary/tokens":"*", em devDependencies do package.json do pacote 'react'.
+
+Rodado 'npm i' na pasta raiz. Agora, as bibliotecas em comum (como o TSUP e o Typescript) dos pacotes estão instaladas em um único 'node_modules' na raiz do projeto! Inclusive, há uma 'instalação' do próprio 'tokens' ali, pois foi declarado que o pacote 'react' tem essa dependência.
+
+Adicionado isto ao package.json de 'tokens' e 'react':
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types":"./dist/index.d.ts",
+
+Isso serve para que os pacotes que venham a depender deles sejam corretamente direcionados aos seus arquivos necessários.
+
+Criado um pacote 'ts-config' para fazer configuração global do typescript para o monorepo.
+Criado arquivo 'base.json' com configurações padrão para arquivos TS comum, e arquivo 'react.json' para arquivos TSX.
+Acrescentado '"@saintmary/ts-config":"*",' às 'devDependencies' dos 'pacgage.json' de 'react' e 'token' e rodado 'npm i' na pasta raiz do monorepo.
+
+Configurado 'tsconfig.json' do pacote 'tokens' assim:
+{
+  "extends":"@saintmary/ts-config/base.json",
+  "include": ["src"],
+}
+
+Configurado 'tsconfig.json' do pacote 'react' assim:
+{
+  "extends":"@saintmary/ts-config/react.json",
+  "include": ["src"],
+}
+
+Criado um pacote 'eslint-config' e rodado 'npm i -y'. Configurado 'package.json'. Instalado 'eslint' e '@rocketseat/eslint-config'. Criado arquivo 'index.js'. Adicionado o pacote domo devDependencies de 'tokens' e 'react'. Criado '.eslintrc.json' em 'react' e 'token'. Criado script de lint em 'token' e 'react' e rodado ele nos dois.
+
+Instalação em 'react': npm i -D react @types/react @types/react-dom. Acrescentado '--external react' aos scripts build e dev do package.json. Instalado stitches ('npm i @stitches/react'). Configurado styles/index.ts, exportando métodos do createStitches.
+Adicionado a ele isto:
+themeMap: {
+    ...defaultThemeMap,
+    height: 'space',
+    width: 'space',
+},
+
+Assim, a largura e altura também trarão as variáveis de espaçamento, cuja raiz é o arquivo 'space' do pacote 'tokens', e que foi importado em 'theme' do createStitches. Isso pode ser feito com qualquer outra variável CSS. o '...defaultThemeMap' é de uso obrigatório, pois sem ele perde-se as referências definidas em 'theme'.
+
+Storybook é uma aplicação que permite documentar componentes do Frontend, como os de um Design System, ou até componentes mais complexos. Com essa aplicação qualquer leigo em programação pode verificar os componentes com testes.
+
+Criada pasta 'docs' em 'packages'. Rodado 'npx sb init --builder @storybook/builder-vite --type react --use-npm'.
+Instalado 'npm i vite @vitejs/plugin-react -D'. Criado arquivo 'vite.config.js'. Instalado 'npm i react react-dom'
+
+
+
+
