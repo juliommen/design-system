@@ -37,4 +37,4 @@ yarn-error.log*
 next-env.d.ts
 
 # others
-/notes.txt
+notes.txt
