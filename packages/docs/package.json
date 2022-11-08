@@ -25,9 +25,11 @@
     "vite": "^3.2.3"
   },
   "dependencies": {
-    "@saintmary/react":"*",
-    "@saintmary/tokens":"*",
-    "@saintmary/eslint-config":"*",
+    "@saintmary/eslint-config": "*",
+    "@saintmary/ts-config": "*",
+    "@saintmary/react": "*",
+    "@saintmary/tokens": "*",
+    "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

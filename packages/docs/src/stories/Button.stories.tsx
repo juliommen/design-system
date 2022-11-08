@@ -2,7 +2,7 @@ import { Button, ButtonProps } from '@saintmary/react'
 import { StoryObj, Meta } from '@storybook/react'
 
 export default {
-  title: 'Button',
+  title: 'Form/Button',
   component: Button,
   args: {
     children: 'Enviar',
