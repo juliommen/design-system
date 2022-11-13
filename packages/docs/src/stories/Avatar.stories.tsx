@@ -2,7 +2,7 @@ import { Avatar, AvatarProps } from '@saintmary/react'
 import { StoryObj, Meta } from '@storybook/react'
 
 export default {
-  title: 'Typography/Avatar',
+  title: 'Data Display/Avatar',
   component: Avatar,
   args: {
     src: 'https://github.com/juliommen.png',
