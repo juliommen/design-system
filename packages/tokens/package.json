@@ -1,10 +1,10 @@
 {
   "name": "@saintmary/tokens",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types":"./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
@@ -14,8 +14,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@saintmary/ts-config":"*",
-    "@saintmary/eslint-config":"*",
+    "@saintmary/ts-config": "*",
+    "@saintmary/eslint-config": "*",
     "tsup": "^6.4.0",
     "typescript": "^4.8.4"
   }
