@@ -61,7 +61,7 @@ export const Button = styled('button', {
     size: {
       sm: {
         padding: '0 $4',
-        height: 38,
+        height: 34,
       },
       md: {
         padding: '0 $4',
@@ -78,3 +78,5 @@ export const Button = styled('button', {
 export interface ButtonProps extends ComponentProps<typeof Button> {
   as?: ElementType
 }
+
+Button.displayName = 'Button'
